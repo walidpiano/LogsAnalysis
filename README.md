@@ -20,15 +20,12 @@ I have also enclosed a ```text``` file showing a result sample.
    ```
 5. Quit from the database by typing ```\q```.
 6. Put the source code [news.py](https://github.com/walidpiano/LogsAnalysis/blob/master/news.py) inside the vm shared folders.
-7. Run the source code by typing 
-   ```python
-   python news.py
-   ```
+7. Run the source code by typing ```python python news.py```
 8. You should get log analysis like in [this file](https://github.com/walidpiano/LogsAnalysis/blob/master/result.txt).
 
 
 ## Application Running:
-Note that once you open run the code, within few seconds you will get the following:
+Note that once you run the code, within few seconds you will get the following:
 1. The most popular three articles of all time
 2. The most popular article authors of all time.
 3. On which days did more than 1% of requests lead to errors.
