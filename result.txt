@@ -1,0 +1,24 @@
+vagrant@vagrant:/vagrant/news$ python news.py
+========================================
+The most popular three articles:
+----------------------------------------
+- "Candidate is jerk, alleges rival" __ 338647 viewed.
+- "Bears love berries, alleges bear" __ 253801 viewed.
+- "Bad things gone, say good people" __ 170098 viewed.
+========================================
+
+========================================
+The most popular article authors:
+----------------------------------------
+- Ursula La Multa __ 507594 views.
+- Rudolf von Treppenwitz __ 423457 views.
+- Anonymous Contributor __ 170098 views.
+========================================
+
+========================================
+More than 1% error requests:
+----------------------------------------
+- 2016-07-17 __ 2.26% errors.
+========================================
+
+vagrant@vagrant:/vagrant/news$
