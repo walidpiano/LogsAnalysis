@@ -19,12 +19,12 @@ I have also enclosed a ```text``` file showing a result sample.
    group by a.name, b.title;
    ```
 5. Quit from the database by typing ```\q```.
-6. Put the source code [news.py](https://github.com/walidpiano/LogsAnalysis/news.py) inside the vm shared folders.
+6. Put the source code [news.py](https://github.com/walidpiano/LogsAnalysis/blob/master/news.py) inside the vm shared folders.
 7. Run the source code by typing 
    ```python
    python news.py
-   ```.
-8. You should get log analysis like in [this file](https://github.com/walidpiano/LogsAnalysis/result.txt).
+   ```
+8. You should get log analysis like in [this file](https://github.com/walidpiano/LogsAnalysis/blob/master/result.txt).
 
 
 ## Application Running:
