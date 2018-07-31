@@ -1,11 +1,12 @@
+#!/usr/bin/env python3
+
 import psycopg2
 
 
-def popular_articles():
+def popular_articles(db_connection):
+    """Function to print out the most popular 3 articles."""
 
-    # function to print out the most popular 3 articles
-    db = psycopg2.connect(database="news")
-    c = db.cursor()
+    c = db_connection.cursor()
 
     query = """
          select * from viewedArticles
@@ -19,16 +20,15 @@ def popular_articles():
     print("The most popular three articles:")
     print("-" * 40)
     for item in result:
-        print('- "%s" __ %d viewed.' % (item[1], item[2]))
-    print("=" * 40)
-    print("")
+        print('- "{}" __ {} viewed.'.format(item[1], item[2]))
+
+    print("=" * 40 + '\n')
 
 
-def popular_authors():
+def popular_authors(db_connection):
+    """Function to get the most popular 3 authors."""
 
-    # function to get the most popular 3 authors
-    db = psycopg2.connect(database="news")
-    c = db.cursor()
+    c = db_connection.cursor()
 
     query = """
         select author, sum(num) as num
@@ -45,34 +45,33 @@ def popular_authors():
     print("-" * 40)
 
     for item in result:
-        print("- %s __ %d views." % (item[0], item[1]))
-    print("=" * 40)
-    print("")
+        print("- {} __ {} views.".format(item[0], item[1]))
+
+    print("=" * 40 + '\n')
 
 
-def over_error():
+def over_error(db_connection):
+    """Function to get the days with more than 1% request errors."""
 
-    # function to get the days with more than 1% request errors
-    db = psycopg2.connect(database="news")
-    c = db.cursor()
+    c = db_connection.cursor()
 
     query = """
-        select a.day, (b.num * 100.0 / a.num)::decimal(8, 2) as errors
+        select daily_requests.day, (daily_errors.num * 100.0 / daily_requests.num)::decimal(8, 2) as errors
         from
         (
         select time::date as day, count(*) as num
         from log
         group by day
-        ) a
+        ) daily_requests
         left join
         (
         select time::date as day, count(*) as num
         from log
         where status != '200 OK'
         group by day
-        ) b
-        on a.day = b.day
-        where (b.num * 100.0 / a.num) > 1;
+        ) daily_errors
+        on daily_requests.day = daily_errors.day
+        where (daily_errors.num * 100.0 / daily_requests.num) > 1;
     """
     c.execute(query)
     result = c.fetchall()
@@ -82,12 +81,14 @@ def over_error():
     print("-" * 40)
 
     for item in result:
-        print("- %s __ %.2f%s errors." % (item[0], item[1], '%'))
-    print("=" * 40)
-    print("")
+        print("- {} __ {}% errors.".format(item[0], item[1]))
+
+    print("=" * 40 + '\n')
 
 
 # to run the functions
-popular_articles()
-popular_authors()
-over_error()
+conn = psycopg2.connect(database="news")
+popular_articles(conn)
+popular_authors(conn)
+over_error(conn)
+conn.close()
